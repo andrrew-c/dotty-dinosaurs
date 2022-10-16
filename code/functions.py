@@ -34,11 +34,15 @@ class Player():
         # Roll dice
         dice = self.roll_dice(choices)
 
+        # Update rolls
+        self.num_rolls += 1
+
+
         # Set value of dice (on board) to 1
         self.dinosaur.update({dice:1})
 
-        # Update rolls
-        self.num_rolls += 1
+        # Now check whether I've won as a result of the change
+        self.check_if_win()
 
     def check_if_win(self):
         """ If all colours on board are covered, then announce the win! """

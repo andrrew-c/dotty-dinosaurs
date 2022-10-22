@@ -67,7 +67,7 @@ class Player():
         # If all spots are covered, then I've wone
         if possible_areas == covered_spots:
             self.win = True
-            print("Yes!! I've won!")
+            # print("Yes!! I've won!")
         
 
 class Game():
@@ -100,8 +100,6 @@ class Game():
         # Return True if there's at least one winner
         return True if num_winners > 0 else False
         
-
-
     def play_round(self):
 
         """ Play a single round of the game, across each player"""
@@ -120,8 +118,19 @@ class Game():
         while not self.check_if_winner():
 
             # Play a round
-            game.play_round()
+            self.play_round()
 
+    def get_winners_position(self):
+        """ Return integer, index of winner """
+
+        if self.check_if_winner:
+
+            # Winning statuses
+            win_statuses = [player.win for player in self.players]
+
+            # Return index position of winner
+            return [i for i, win_statuses in enumerate(win_statuses) if win_statuses][0]
+            
     # Print boards
     def print_boards(self):
 
@@ -131,15 +140,75 @@ class Game():
             player = self.players[p]
             print(f"Player {p:,} with board {player.dinosaur}")
             
+class Simulations():
+
+    """ Simulate multiple games, keep notes on results"""
+
+    def __init__(self, num_players, num_simulations):
+
+        """ Initialise the simulation class """
+
+        # The number of players
+        self.num_players = num_players
+
+        # Integer - number of times to simulate
+        self.num_simulations = num_simulations
+
+        # Keep record of winners scores
+        self.winner_records = {i:0 for i in range(self.num_players)}
+
+    def run_simulations(self):
+
+        """ Run the simluations of Dotty Dinosaurs"""
+
+        for s in range(self.num_simulations):
+
+            print(f"Running simulation {s+1:,} of {self.num_simulations:,} ({(s+1)/self.num_simulations:.2%})")
+            
+            # Init game
+            game = Game(self.num_players)
+
+            # Play game
+            game.play_game()
+
+            # Get winner
+            winner_position = game.get_winners_position()
+
+            # Iterate player record by one
+            self.winner_records[winner_position] += 1
+    
+    
+
+
+
+
 
 
 if __name__ == "__main__":
 
-    # Start small with 2 players
+    # sim = Simulations(2, 1)
+    # sim.run_simulations()
+
+    
+    # # Start small with 2 players
     num_players = 2
 
-    # Init Game
-    game = Game(2)
+    # Simulations = 1
+    num_simulations = 10000
 
-    # Play a round over all players
-    game.play_game()
+    # Initialise simulation
+    sim = Simulations(num_players, num_simulations)
+
+    # Run simulations
+    sim.run_simulations()
+
+    # Print out winning records
+    sim.winner_records
+
+    # sim.winner_records
+
+    # # Init Game
+    # game = Game(num_players)
+
+    # # Play a round over all players
+    # game.play_game()

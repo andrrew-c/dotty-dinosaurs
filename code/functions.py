@@ -112,6 +112,26 @@ class Game():
             # Play a round
             player.play_round()
 
+    def play_game(self):
+
+        """ Keep playing rounds until there's a winner"""
+
+        # While there's no winner
+        while not self.check_if_winner():
+
+            # Play a round
+            game.play_round()
+
+    # Print boards
+    def print_boards(self):
+
+        """ View each players board"""
+
+        for p in range(len(self.players)):
+            player = self.players[p]
+            print(f"Player {p:,} with board {player.dinosaur}")
+            
+
 
 if __name__ == "__main__":
 
@@ -121,4 +141,5 @@ if __name__ == "__main__":
     # Init Game
     game = Game(2)
 
-    game.play_round()
+    # Play a round over all players
+    game.play_game()

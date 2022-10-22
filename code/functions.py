@@ -10,6 +10,17 @@ choices = 'red', 'blue', 'yellow', 'orange', 'green', 'purple'
 
 class Player():
 
+    """ Player of Dotty Dinosaurs
+
+        A player starts with a board (self.dinosaur) that is initialised as blank.
+
+        For each roll of the dice, the player updates their board to match the colour returned by the dice.
+        For example, when a player rolls a 'red', they can add a 'red' piece to their dinosaur/board.
+
+        (self.num_rolls) Integer - Each player keeps a note of how many rolls they've made.
+        (self.win) Boolean - Each player checks after their turn, whether they have won.
+    """
+
     def __init__(self):
 
         # Each player starts with a board of empty colours
@@ -59,3 +70,55 @@ class Player():
             print("Yes!! I've won!")
         
 
+class Game():
+
+    """ A game of Dotty Dinosaurs 
+
+        We initialise each player and play a game of Dotty Dinosaurs until one player wins.
+    """
+
+    def __init__(self, num_players):
+
+        """ Initialise the game with a list for each player"""
+
+        # Keep a note of the number of players in the game
+        self.num_players = num_players
+
+        # Initialise the players of the game
+        self.players = [Player() for p in range(self.num_players)]
+
+        # Initialise winning status to False
+        self.any_winners = False
+
+    def check_if_winner(self):
+
+        """ Return True if there's at least one winner across the players"""
+
+        # All win statuses
+        num_winners = sum([player.win for player in self.players])
+
+        # Return True if there's at least one winner
+        return True if num_winners > 0 else False
+        
+
+
+    def play_round(self):
+
+        """ Play a single round of the game, across each player"""
+
+        # For each player in game
+        for player in self.players:
+
+            # Play a round
+            player.play_round()
+
+
+if __name__ == "__main__":
+
+    # Start small with 2 players
+    num_players = 2
+
+    # Init Game
+    game = Game(2)
+
+    game.play_round()

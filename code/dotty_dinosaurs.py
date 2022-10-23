@@ -7,7 +7,7 @@ if __name__ == "__main__":
     num_players = 4
 
     # Simulations = 1
-    num_simulations = 10000
+    num_simulations = 1000
 
     # Initialise simulation
     sim = Simulations(num_players, num_simulations)
@@ -17,3 +17,4 @@ if __name__ == "__main__":
 
     # Print out winning records
     sim.winner_records
+    sim.get_proportions()

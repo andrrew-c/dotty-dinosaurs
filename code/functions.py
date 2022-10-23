@@ -176,6 +176,18 @@ class Simulations():
 
             # Iterate player record by one
             self.winner_records[winner_position] += 1
+
+    def get_proportions(self):
+
+        """ Return percentages from the simulations"""
+
+        # Calculate proportions from the winner records
+        proportions = [v/sum(self.winner_records.values()) for v in self.winner_records.values()]
+
+        return dict(zip(self.winner_records.keys(), proportions))
+
+
+
     
     
 
